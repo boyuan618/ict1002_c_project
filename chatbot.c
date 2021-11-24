@@ -5,3 +5,4 @@
 4. If the intent is a question, search the knowledge base (see below) for an answer. 
 5. If the knowledge base does not contain an answer, ask the user for an answer, and add 
 the new answer to the knowledge base. 
+*/
