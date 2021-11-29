@@ -56,4 +56,22 @@ void knowledge_reset();
 int knowledge_read(FILE *f);
 void knowledge_write(FILE *f);
 
+// FY's define for knowledge.c 
+
+typedef struct node{
+  char intent[MAX_INTENT];
+  char entity[MAX_ENTITY];
+  char response[MAX_RESPONSE];
+  struct node *next;
+}node;
+
+// pointer to the head of the intent, entity, and response linked list
+
+// defining the head ptrs
+node *head_what, *head_where, *head_who;
+
+// defining the traveling temp ptrs
+node *who_ptr, *where_ptr, *head_ptr;
+
+
 #endif

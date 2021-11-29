@@ -17,6 +17,8 @@
 #include <string.h>
 #include "chat1002.h"
 
+
+
 /*
  * Get the response to a question.
  *
@@ -32,10 +34,38 @@
  *   KB_INVALID, if 'intent' is not a recognised question word
  */
 int knowledge_get(const char *intent, const char *entity, char *response, int n) {
+  // 3 linked list, one for each of the WHO WHERE WHAT
+  // WHO
+  if (compare_token(intent, "who") == 0){
+    if (head_who != NULL){
+      who_ptr = head_who;
+      while(who_ptr){
+        // if node with same entity exists, strncpy to response
+        if (compare_token(who_ptr->entity,entity) == 0){
+          strncpy(response, who_ptr->response, n);
+          return KB_OK;
+        
+        // continue reiterating the linked list
+        who_ptr = who_ptr->next;
+        }
+        // if cannot find the same entity match, return KBnotfound
+        return KB_NOTFOUND;
+      }
+    // returns KBnotfound if head_who = NULL (linked list doesnt exist)
+    }else return KB_NOTFOUND;
+  } 
 
-	/* to be implemented */
+  // WHERE
+  else if (){
+    // code
+  }
+	
+  // WHAT
+  else if(){
+    // code
+  }
 
-	return KB_NOTFOUND;
+	else return KB_NOTFOUND;
 
 }
 
