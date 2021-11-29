@@ -246,8 +246,16 @@ int chatbot_is_question(const char *intent) {
  */
 int chatbot_do_question(int inc, char *inv[], char *response, int n) {
 
-	/* to be implemented */
+	/* to be implemented  (done but hvnt test)*/
+  char *entity;
+	
+	if (compare_token(inv[1], "is") == 0 || compare_token(inv[1], "are") == 0) { // dont include in
+		memcpy(entity, &inv[2], 2*sizeof(*inv));
+	} else {
+		memcpy(entity, &inv[1], 2*sizeof(*inv));
+	}
 
+	knowledge_get(inv[0], entity, response, n);
 	return 0;
 
 }
@@ -321,8 +329,17 @@ int chatbot_is_save(const char *intent) {
  */
 int chatbot_do_save(int inc, char *inv[], char *response, int n) {
 
-	/* to be implemented */
+	/* to be implemented (not sure if this is right, but yeah)*/
+  
+  char *entity;
+	
+	if (compare_token(inv[1], "as") == 0 || compare_token(inv[1], "to") == 0) { // dont include if inv[1] is as or to
+		memcpy(entity, &inv[2], 2*sizeof(*inv));
+	} else {
+		memcpy(entity, &inv[1], 2*sizeof(*inv));
+	}
 
+	knowledge_put(inv[0], entity, response);
 	return 0;
 
 }
