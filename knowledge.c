@@ -35,37 +35,63 @@
  */
 int knowledge_get(const char *intent, const char *entity, char *response, int n) {
   // 3 linked list, one for each of the WHO WHERE WHAT
+
   // WHO
   if (compare_token(intent, "who") == 0){
-    if (head_who != NULL){
-      who_ptr = head_who;
-      while(who_ptr){
-        // if node with same entity exists, strncpy to response
-        if (compare_token(who_ptr->entity,entity) == 0){
-          strncpy(response, who_ptr->response, n);
-          return KB_OK;
-        
-        // continue reiterating the linked list
-        who_ptr = who_ptr->next;
-        }
-        // if cannot find the same entity match, return KBnotfound
-        return KB_NOTFOUND;
+    //ptr to head of the linked list
+    who_ptr = head_who;
+    while (who_ptr != NULL){
+      // if node with same entity exists, strncpy to response
+      if (compare_token(who_ptr->entity,entity) == 0){
+        strncpy(response, who_ptr->response, n);
+        return KB_OK;
       }
-    // returns KBnotfound if head_who = NULL (linked list doesnt exist)
-    }else return KB_NOTFOUND;
+      // implicit else, iterate through the linked list
+      who_ptr = who_ptr->next;
+    }
+    // if cannot find the same entity match or header = NULL
+    // (linked list doesnt exist) return KBnotfound
+    return KB_NOTFOUND;
   } 
 
-  // WHERE
-  else if (){
-    // code
+  // WHAT
+  else if (compare_token(intent, "what") == 0){
+    //ptr to head of the linked list
+    what_ptr = head_what;
+    while (what_ptr != NULL){
+      // if node with same entity exists, strncpy to response
+      if (compare_token(what_ptr->entity,entity) == 0){
+        strncpy(response, what_ptr->response, n);
+        return KB_OK;
+      }
+      // implicit else, iterate through the linked list
+      what_ptr = what_ptr->next;
+    }
+    // if cannot find the same entity match or header = NULL
+    // (linked list doesnt exist) return KBnotfound
+    return KB_NOTFOUND;
   }
 	
-  // WHAT
-  else if(){
-    // code
+  // WHERE
+  else if (compare_token(intent, "where") == 0){
+    //ptr to head of the linked list
+    where_ptr = head_where;
+    while (where_ptr != NULL){
+      // if node with same entity exists, strncpy to response
+      if (compare_token(where_ptr->entity,entity) == 0){
+        strncpy(response, where_ptr->response, n);
+        return KB_OK;
+      }
+      // implicit else, iterate through the linked list
+      where_ptr = where_ptr->next;
+    }
+    // if cannot find the same entity match or header = NULL
+    // (linked list doesnt exist) return KBnotfound
+    return KB_NOTFOUND;
   }
 
-	else return KB_NOTFOUND;
+  // if no intent, return INVALID state
+	else return KB_INVALID;
 
 }
 
@@ -105,6 +131,8 @@ int knowledge_put(const char *intent, const char *entity, const char *response) 
 int knowledge_read(FILE *f) {
 
 	/* to be implemented */
+  int valid_lines;
+  
 
 	return 0;
 }
@@ -114,9 +142,38 @@ int knowledge_read(FILE *f) {
  * Reset the knowledge base, removing all know entitities from all intents.
  */
 void knowledge_reset() {
+	if (head_what != NULL){
+    //create ptr to travel the linked list
+    node *travel_ptr = head_what;
+    
+    while (travel_ptr != NULL){
+      head_what = travel_ptr;
+      travel_ptr = travel_ptr->next;
+      free(head_what);
+    }
+  }
 
-	/* to be implemented */
+	if (head_who != NULL){
+    //create ptr to travel the linked list
+    node *travel_ptr = head_who;
+    
+    while (travel_ptr != NULL){
+      head_who = travel_ptr;
+      travel_ptr = travel_ptr->next;
+      free(head_who);
+    }
+  }
 
+	if (head_where != NULL){
+    //create ptr to travel the linked list
+    node *travel_ptr = head_where;
+
+    while (travel_ptr != NULL){
+      head_where = travel_ptr;
+      travel_ptr = travel_ptr->next;
+      free(head_where);
+    }
+  }
 }
 
 
@@ -128,6 +185,39 @@ void knowledge_reset() {
  */
 void knowledge_write(FILE *f) {
 
-	/* to be implemented */
+	if (head_what != NULL){
+    //create ptr to travel the linked list
+    node *travel_ptr = head_what;
+    fprintf(f,"[what]\n");
 
+    while (travel_ptr != NULL){
+      //in the format entity=value
+      fprintf(f,"%s=%s\n", travel_ptr->entity, travel_ptr->response);
+      travel_ptr = travel_ptr->next;
+    }
+  }
+
+	if (head_who != NULL){
+    //create ptr to travel the linked list
+    node *travel_ptr = head_who;
+    fprintf(f,"[who]\n");
+
+    while (travel_ptr != NULL){
+      //in the format entity=value
+      fprintf(f,"%s=%s\n", travel_ptr->entity, travel_ptr->response);
+      travel_ptr = travel_ptr->next;
+    }
+  }
+
+	if (head_where != NULL){
+    //create ptr to travel the linked list
+    node *travel_ptr = head_where;
+    fprintf(f,"[where]\n");
+
+    while (travel_ptr != NULL){
+      //in the format entity=value
+      fprintf(f,"%s=%s\n", travel_ptr->entity, travel_ptr->response);
+      travel_ptr = travel_ptr->next;
+    }
+  }
 }

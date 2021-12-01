@@ -67,11 +67,12 @@ typedef struct node{
 
 // pointer to the head of the intent, entity, and response linked list
 
-// defining the head ptrs
+// defining the head ptrs for the three linked lists
 node *head_what, *head_where, *head_who;
 
-// defining the traveling temp ptrs
-node *who_ptr, *where_ptr, *head_ptr;
+// defining the traveling temp ptrs, one for each of the 
+// [WHO][WHERE][WHAT]
+node *who_ptr, *where_ptr, *what_ptr;
 
 
 #endif
