@@ -113,8 +113,61 @@ int knowledge_get(const char *intent, const char *entity, char *response, int n)
  */
 int knowledge_put(const char *intent, const char *entity, const char *response) {
 
-	/* to be implemented */
+  // WHO
+  if (compare_token(intent, "who") == 0){
+    //ptr to head of the linked list
+    who_ptr = head_who;
+    while (who_ptr != NULL){
+      // if node with same entity exists, strncpy to response
+      if (compare_token(who_ptr->entity,entity) == 0){
+        strncpy(response, who_ptr->response, n);
+        return KB_OK;
+      }
+      // implicit else, iterate through the linked list
+      who_ptr = who_ptr->next;
+    }
+    // if cannot find the same entity match or header = NULL
+    // (linked list doesnt exist) return KBnotfound
+    return KB_NOTFOUND;
+  } 
 
+  // WHAT
+  else if (compare_token(intent, "what") == 0){
+    //ptr to head of the linked list
+    what_ptr = head_what;
+    while (what_ptr != NULL){
+      // if node with same entity exists, strncpy to response
+      if (compare_token(what_ptr->entity,entity) == 0){
+        strncpy(response, what_ptr->response, n);
+        return KB_OK;
+      }
+      // implicit else, iterate through the linked list
+      what_ptr = what_ptr->next;
+    }
+    // if cannot find the same entity match or header = NULL
+    // (linked list doesnt exist) return KBnotfound
+    return KB_NOTFOUND;
+  }
+	
+  // WHERE
+  else if (compare_token(intent, "where") == 0){
+    //ptr to head of the linked list
+    where_ptr = head_where;
+    while (where_ptr != NULL){
+      // if node with same entity exists, strncpy to response
+      if (compare_token(where_ptr->entity,entity) == 0){
+        strncpy(response, where_ptr->response, n);
+        return KB_OK;
+      }
+      // implicit else, iterate through the linked list
+      where_ptr = where_ptr->next;
+    }
+    // if cannot find the same entity match or header = NULL
+    // (linked list doesnt exist) return KBnotfound
+    return KB_NOTFOUND;
+  }
+
+  // if no intent, return INVALID state
 	return KB_INVALID;
 
 }

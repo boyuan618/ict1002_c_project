@@ -52,7 +52,7 @@
  */
 const char *chatbot_botname() {
 
-	return "Chatbot";
+	return "Whackinator";
 
 }
 
@@ -64,7 +64,7 @@ const char *chatbot_botname() {
  */
 const char *chatbot_username() {
 
-	return "User";
+	return "BOB";
 
 }
 
@@ -363,10 +363,10 @@ int chatbot_do_save(int inc, char *inv[], char *response, int n) {
  */
 int chatbot_is_smalltalk(const char *intent) {
 
-	return compare_token("Hello", intent) == 0 ||
-        compare_token("Time", intent) == 0 || 
-        compare_token("Weather", intent) == 0 ||
-        compare_token("Temperature", intent) == 0;
+	return compare_token("hello", intent) == 0 ||
+        compare_token("time", intent) == 0 || 
+        compare_token("weather", intent) == 0 ||
+        compare_token("temperature", intent) == 0;
 
 }
 
