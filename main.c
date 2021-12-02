@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "chat1002.h"
+#include "chatbot.c"
+#include "knowledge.c"
 
 
 /* word delimiters */
@@ -44,11 +46,12 @@ int main(int argc, char *argv[]) {
 		do {
 			/* read the line */
 			printf("%s: ", chatbot_username());
-			fgets(input, MAX_INPUT, stdin);
+			fgets(input, MAX_INPUT, stdin);      
 
 			/* split it into words */
 			inc = 0;
 			inv[inc] = strtok(input, delimiters);
+
 			while (inv[inc] != NULL) {
 
 				/* remove trailing punctuation */
@@ -63,10 +66,11 @@ int main(int argc, char *argv[]) {
 				inv[inc] = strtok(NULL, delimiters);
 			}
 		} while (inc < 1);
-
+    
 		/* invoke the chatbot */
 		done = chatbot_main(inc, inv, output, MAX_RESPONSE);
 		printf("%s: %s\n", chatbot_botname(), output);
+
 
 	} while (!done);
 
@@ -104,30 +108,3 @@ int compare_token(const char *token1, const char *token2) {
 
 }
 
-
-/*
- * Prompt the user.
- *
- * Input:
- *   buf    - a buffer into which to store the answer
- *   n      - the maximum number of characters to write to the buffer
- *   format - format string, as printf
- *   ...    - as printf
- */
-void prompt_user(char *buf, int n, const char *format, ...) {
-
-	/* print the prompt */
-	va_list args;
-	va_start(args, format);
-	printf("%s: ", chatbot_botname());
-	vprintf(format, args);
-	printf(" ");
-	va_end(args);
-	printf("\n%s: ", chatbot_username());
-
-	/* get the response from the user */
-	fgets(buf, n, stdin);
-	char *nl = strchr(buf, '\n');
-	if (nl != NULL)
-		*nl = '\0';
-}

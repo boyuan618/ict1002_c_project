@@ -27,6 +27,11 @@
 #define KB_NOTFOUND -1
 #define KB_INVALID  -2
 #define KB_NOMEM    -3
+
+/* define intent keywords */
+#define WHERE   "WHERE"
+#define WHAT    "WHAT"
+#define WHO     "WHO"
  
 /* functions defined in main.c */
 int compare_token(const char *token1, const char *token2);

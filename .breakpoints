@@ -1,0 +1,20 @@
+{
+  "files": {
+    "knowledge.c": [
+      {
+        "id": "e6b0f1f9-e08d-4b4f-baf5-15c8b22f4781",
+        "line": 133,
+        "version": 4051,
+        "index": 4088
+      }
+    ],
+    "main.c": [
+      {
+        "id": "c483ddce-1608-4691-906b-23ee67867dd2",
+        "line": 42,
+        "version": 431,
+        "index": 1122
+      }
+    ]
+  }
+}
